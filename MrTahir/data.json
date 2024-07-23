@@ -244,7 +244,7 @@
         }
       ]
     },
-    "tags": ["React", "Web Development", "Frontend Dev"],
+    "tags": ["React", "Web Dev", "Routing"],
     "metadata": {
       "word_count": 450,
       "read_time": "5 minutes"
@@ -305,12 +305,67 @@
         }
       ]
     },
-    "tags": ["React", "Web Development", "Frontend Dev"],
+    "tags": ["React", "Web Development", "UseParams"],
     "metadata": {
       "word_count": 950,
       "read_time": "10 minutes"
     }
+  },
+  {
+    "id": "9",
+    "title": "Using useContext in React",
+    "date_published": "2024-07-23",
+    "author": "Tahir",
+    "content": {
+      "introduction": "The useContext hook in React allows you to use the React Context API more easily. It is used to share data that can be considered 'global' for a tree of React components, such as the current authenticated user, theme, or preferred language.",
+      "sections": [
+        {
+          "section_title": "What is Context?",
+          "section_content": "Context provides a way to pass data through the component tree without having to pass props down manually at every level. It is designed to share data that can be considered global for a tree of React components."
+        },
+        {
+          "section_title": "How to Create a Context",
+          "section_content": "To create a context, first create a Contexts folder inside the src directory. Create a file with AnyNameContext.js. Import React and useContext. Now create context by method createContext().",
+          "code_snippet_title": "Contexts/UserContext.js",
+          "code_snippet": "import React from \"react\";\nimport { createContext } from \"react\";\n\nconst UserContext = createContext();\n\nexport default UserContext;"
+        },
+        {
+          "section_title": "Provide the Context",
+          "section_content": "In the previous step, we successfully created a context. Now we need to provide this context to the components that will use it."
+        },
+        {
+          "section_title": "Create a Provider Component",
+          "section_content": "Create a new file in the Contexts folder named AnyNameContextProvider.jsx. Now import the context you have created. Create a method with the same name as the file name and export it. It accepts parameters {children}. Return the children in the function and wrap it with the context you created. Also specify the provider and pass the value you want to pass. First create the value and then pass it.",
+          "code_snippet_title": "Contexts/UserContextProvider.jsx",
+          "code_snippet": "import React, { useState } from \"react\";\nimport UserContext from \"./UserContext\";\n\nconst UserContextProvider = ({ children }) => {\n    const [user, setUser] = useState(null);\n    \n    return (\n        <UserContext.Provider value={{ user, setUser }}>\n            {children}\n        </UserContext.Provider>\n    );\n};\n\nexport default UserContextProvider;"
+        },
+        {
+          "section_title": "Wrap the App with the Provider",
+          "section_content": "Now, wrap the app with the provider you created. This makes the context available to all components within the app.",
+          "code_snippet_title": "src/App.jsx",
+          "code_snippet": "import React from 'react';\nimport UserContextProvider from './Contexts/UserContextProvider';\nimport Login from './components/Login';\nimport User from './components/User';\n\nconst App = () => {\n    return (\n        <UserContextProvider>\n            <Login />\n            <User />\n        </UserContextProvider>\n    );\n};\n\nexport default App;"
+        },
+        {
+          "section_title": "Use the Context in a Component",
+          "section_content": "To consume the context in a functional component, use the useContext hook. This allows you to access the context value directly.",
+          "code_snippet_title": "components/Login.jsx",
+          "code_snippet": "import { useState, useContext } from \"react\";\nimport UserContext from \"../Contexts/UserContext\";\n\nconst Login = () => {\n    const [username, setUserName] = useState(\"\");\n    const [password, setPassword] = useState(\"\");\n    const { setUser } = useContext(UserContext);\n\n    const handleSubmission = (e) => {\n        e.preventDefault();\n        setUser({ username, password });\n    };\n\n    return (\n        <>\n            <input\n                type=\"text\"\n                name=\"username\"\n                id=\"username\"\n                onChange={(e) => setUserName(e.target.value)}\n            />\n            <input\n                type=\"password\"\n                name=\"password\"\n                id=\"password\"\n                onChange={(e) => setPassword(e.target.value)}\n            />\n            <button onClick={handleSubmission}>Login</button>\n        </>\n    );\n};\n\nexport default Login;"
+        },
+        {
+          "section_title": "Display the Context Value",
+          "section_content": "To display the context value in another component, use the useContext hook to access the value and display it as needed.",
+          "code_snippet_title": "components/User.jsx",
+          "code_snippet": "import { useContext } from \"react\";\nimport UserContext from \"../Contexts/UserContext\";\n\nconst User = () => {\n    const { user } = useContext(UserContext);\n\n    return (\n        <>\n            <h1>Username is {user ? user.username : \"Nothing found\"}</h1>\n        </>\n    );\n};\n\nexport default User;"
+        }
+      ]
+    },
+    "tags": ["React", "useContext", "Web Dev"],
+    "metadata": {
+      "word_count": 620,
+      "read_time": "7 minutes"
+    }
   }
+  
   
   
   
