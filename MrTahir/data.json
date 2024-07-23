@@ -252,70 +252,66 @@
   },
   {
     "id": "8",
-    "title": "Advanced Usage of React Router DOM in React Applications",
+    "title": "React Router DOM - Advanced",
     "date_published": "2024-07-23",
-    "author": "Mr. Tahir",
+    "author": "Muhammad Tahir Yasin",
     "content": {
-        "introduction": "React Router DOM is a powerful library that provides routing capabilities to React applications, allowing seamless navigation between different pages without reloading the entire page. This guide will walk you through advanced usage of React Router DOM, including setting up routes, using `Link` and `NavLink`, and creating a layout component that includes headers and footers.",
-        "sections": [
-            {
-                "section_title": "Setting Up React Router DOM",
-                "section_content": "To begin using React Router DOM in your application, you first need to install it. This can be done using npm.",
-                "code_snippet_title": "Installation Command",
-                "code_snippet": "npm install react-router-dom",
-                "images": [],
-                "additional_info": "",
-                "recommendation": ""
-            },
-            {
-                "section_title": "Using `Link` and `NavLink`",
-                "section_content": "React Router DOM provides two primary components for navigation: `Link` and `NavLink`. `Link` is used to navigate to different routes without causing a page reload, while `NavLink` allows for styling the active link.",
-                "code_snippet_title": "Header Component",
-                "code_snippet": "// components/Header.jsx\nimport { Link, NavLink } from 'react-router-dom';\nimport '../index.css';\n\nconst Header = () => {\n    return (\n      <nav>\n        <NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>Home</NavLink>\n        <NavLink to='/about' className={({ isActive }) => (isActive ? 'active' : '')}>About</NavLink>\n        <NavLink to='/contact' className={({ isActive }) => (isActive ? 'active' : '')}>Contact</NavLink>\n      </nav>\n    );\n}\n\nexport default Header;",
-                "images": [],
-                "additional_info": "",
-                "recommendation": ""
-            },
-            {
-                "section_title": "Configuring the Router",
-                "section_content": "In your main entry file (usually `main.jsx` or `index.jsx`), you need to replace the `App` component with `RouterProvider` and set up your routes.",
-                "code_snippet_title": "Main Entry File Configuration",
-                "code_snippet": "// main.jsx or index.jsx\nimport React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport './index.css';\nimport { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';\nimport Home from './pages/Home.jsx';\nimport About from './pages/About.jsx';\nimport Contact from './pages/Contact.jsx';\nimport Layout from './components/Layout.jsx';\n\nconst router = createBrowserRouter(\n  createRoutesFromElements(\n    <Route path='/' element={<Layout />}> \n      <Route index element={<Home />} />\n      <Route path='about' element={<About />} />\n      <Route path='contact' element={<Contact />} />\n    </Route>\n  )\n);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);",
-                "images": [],
-                "additional_info": "",
-                "recommendation": ""
-            },
-            {
-                "section_title": "Creating a Layout Component",
-                "section_content": "A `Layout` component can be used to include common elements like headers and footers across different pages.",
-                "code_snippet_title": "Layout Component",
-                "code_snippet": "// components/Layout.jsx\nimport Header from './Header';\nimport Footer from './Footer';\nimport { Outlet } from 'react-router-dom';\n\nconst Layout = () => {\n    return (\n        <>\n            <Header />\n            <Outlet />  {/* Renders the matched child route */}\n            <Footer />\n        </>\n    );\n}\n\nexport default Layout;",
-                "images": [],
-                "additional_info": "",
-                "recommendation": ""
-            },
-            {
-                "section_title": "Utilizing the Layout Component",
-                "section_content": "To use the `Layout` component in your routing setup, ensure that your routes are nested within it.",
-                "code_snippet_title": "Route Configuration with Layout",
-                "code_snippet": "// In main.jsx or index.jsx\nconst router = createBrowserRouter(\n  createRoutesFromElements(\n    <Route path='/' element={<Layout />}> \n      <Route index element={<Home />} />\n      <Route path='about' element={<About />} />\n      <Route path='contact' element={<Contact />} />\n    </Route>\n  )\n);",
-                "images": [],
-                "additional_info": "",
-                "recommendation": ""
-            }
-        ]
+      "introduction": "React Router DOM is a library that allows you to implement routing in your React application. This guide will show you how to set up and use React Router DOM to navigate between different pages in your app without reloading the entire page.",
+      "sections": [
+        {
+          "section_title": "How to install react-router-dom?",
+          "section_content": "To install react-router-dom. Use the following command",
+          "code_snippet_title": "Command to run",
+          "code_snippet": "npm install react-router-dom",
+          "images": [],
+          "additional_info": "",
+          "recommendation": ""
+        },
+        {
+          "section_title": "Create a Navbar",
+          "section_content": "Create a header in which the user can see all the pages to visit. Use the Link and NavLink feature of react-router-dom. Link is simply used to redirect the user to any page. NavLink is similar to Link but we can style the active link in this. To style the active link we use a callback which accepts one argument isActive. If isActive is true, then it applies the style to the active link.",
+          "code_snippet_title": "See the Example",
+          "code_snippet": "import { Link, NavLink } from \"react-router-dom\"\nimport '../index.css'\nconst Header = () => {\n    return (\n      <nav>\n        <NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>Home</NavLink>\n        <NavLink to='/about' className={({ isActive }) => (isActive ? 'active' : '')}>About</NavLink>\n        <NavLink to='/contact' className={({ isActive }) => (isActive ? 'active' : '')}>Contact</NavLink>\n      </nav>\n    );\n  }\n  \n  export default Header;",
+          "images": [],
+          "additional_info": "I assume that you should have code for Home, About, and Contact Pages. If you do not have then you should pick up starter code from the next step.",
+          "recommendation": ""
+        },
+        {
+          "section_title": "Now Create Routes",
+          "section_content": "Now navigate to main.jsx or index.jsx. Import RouterProvider, createBrowserRouter, createRoutesFromElements, and Routes from react-router-dom. RouterProvider will accept an object which creates routes. createBrowserRouter is a function that specifies the different routes (URLs) that the app will handle and what components should be rendered for each route. Routes will define and manage the different routes in your application. Path defines where to move. Element defines which component to render.",
+          "code_snippet_title": "Below is the code",
+          "code_snippet": "import React from 'react'\nimport ReactDOM from 'react-dom/client'\nimport App from './App.jsx'\nimport './index.css'\nimport { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'\nimport Home from './pages/Home.jsx'\nimport Layout from './components/Layout.jsx'\nimport About from './pages/About.jsx'\nimport Contact from './pages/Contact.jsx'\nimport User from './pages/User.jsx'\n\nconst router = createBrowserRouter(\n  createRoutesFromElements(\n  <Route path='/' element={<Layout />}>\n    <Route path='' element={<Home />} />\n    <Route path='about' element={<About />} />\n    <Route path='contact' element={<Contact />} />\n  </Route>\n  )\n)\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    {/* <App /> */}\n    <RouterProvider router={router} />\n  </React.StrictMode>,\n)",
+          "images": [],
+          "additional_info": "",
+          "recommendation": ""
+        },
+        {
+          "section_title": "Create a Layout Component",
+          "section_content": "The Layout component helps make sure all your pages look similar. It includes things like a header at the top and a footer at the bottom. The Outlet is where the main content of each page appears, and it changes based on the page you are on.",
+          "code_snippet_title": "Code to create Layout",
+          "code_snippet": "// components/Layout.jsx \nimport Header from \"./Header\"\nimport Footer from \"./Footer\"\nimport {Outlet} from 'react-router-dom';\nconst Layout = () =>{\n    return(\n        <>\n            <Header />\n            <Outlet />                {/* it will change the component on user request  */}\n            <Footer />\n        </>\n    )\n}\nexport default Layout",
+          "images": [],
+          "additional_info": "Outlet replaces the component with the user-requested component.",
+          "recommendation": ""
+        },
+        {
+          "section_title": "UseParams",
+          "section_content": "The useParams hook is used to read the parameters from the current route. This is useful for accessing dynamic parts of the URL, like user IDs.",
+          "code_snippet_title": "Code to create User component",
+          "code_snippet": "import { useParams } from \"react-router-dom\"\nconst User=()=>{\n    const {userId} = useParams()\n    console.log(userId)\n    return(\n        <>\n            <h1>User: {userId}</h1>\n        </>\n    )\n}\nexport default User",
+          "images": [],
+          "additional_info": "useParams allows you to extract parameters from the URL, such as userId in this example. This can be used to display user-specific information.",
+          "recommendation": ""
+        }
+      ]
     },
-    "tags": [
-        "React",
-        "Web Development",
-        "Frontend Dev"
-    ],
+    "tags": ["React", "Web Development", "Frontend Dev"],
     "metadata": {
-        "word_count": 850,
-        "read_time": "5 minutes"
+      "word_count": 950,
+      "read_time": "10 minutes"
     }
-
   }
+  
   
   
   
