@@ -244,7 +244,7 @@
         }
       ]
     },
-    "tags": ["React", "React Router DOM", "Routing", "JavaScript", "Web Development"],
+    "tags": ["React", "Web Development", "Web Development"],
     "metadata": {
       "word_count": 450,
       "read_time": "5 minutes"
@@ -307,9 +307,7 @@
     },
     "tags": [
         "React",
-        "React Router DOM",
         "Web Development",
-        "JavaScript",
         "Frontend Development"
     ],
     "metadata": {
