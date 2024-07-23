@@ -251,83 +251,72 @@
     }
   },
   {
-    "id": "8",
-    "title": "React Router DOM - Advance",
+    "id": "1",
+    "title": "Advanced Usage of React Router DOM in React Applications",
     "date_published": "2024-07-23",
-    "author": "Jane Doe",
+    "author": "Mr. Tahir",
     "content": {
-      "introduction": "React Router DOM is a library that allows you to implement routing in your React application. This guide will show you how to set up and use React Router DOM to navigate between different pages in your app without reloading the entire page.",
-      "sections": [
-        {
-          "section_title": "Step 1: Install React Router DOM",
-          "section_content": "First, you need to install React Router DOM in your React app. This library helps in managing the routing between different pages of your application. To install it, open your terminal, navigate to your project directory, and run the following command.",
-          "code_snippet_title": "Command",
-          "code_snippet": "npm install react-router-dom",
-          "images": [],
-          "additional_info": "Installing React Router DOM is the first step to start using its routing features. This command downloads the necessary files and adds them to your project.",
-          "recommendation": ""
-        },
-        {
-          "section_title": "Step 2: Using Link and NavLink",
-          "section_content": "After installing React Router DOM, you get access to built-in components like Link and NavLink. These components help you create navigation links in your app. Use Link instead of the traditional <a> tag because it prevents the page from reloading. NavLink is similar to Link but allows you to apply styles to the active link using a callback function with the isActive argument.",
-          "code_snippet_title": "Example",
-          "code_snippet": "// components/Header.jsx \nimport { Link, NavLink } from 'react-router-dom'\nimport '../index.css'\nconst Header = () => {\n  return (\n    <nav>\n      <NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>Home</NavLink>\n      <NavLink to='/about' className={({ isActive }) => (isActive ? 'active' : '')}>About</NavLink>\n      <NavLink to='/contact' className={({ isActive }) => (isActive ? 'active' : '')}>Contact</NavLink>\n    </nav>\n  );\n}\nexport default Header;",
-          "images": [],
-          "additional_info": "The Link component prevents full page reloads, making the navigation faster and smoother. NavLink provides additional functionality to style the active link, enhancing user experience.",
-          "recommendation": ""
-        },
-        {
-          "section_title": "Step 3: Set Up RouterProvider",
-          "section_content": "In this step, you'll set up the RouterProvider in your main.jsx or index.jsx file. The RouterProvider is the main component that will handle the routing in your application. Remove the default App component and replace it with RouterProvider, which needs a router prop. This prop will be created in the next step.",
-          "code_snippet_title": "Example Code",
-          "code_snippet": "import React from 'react'\nimport ReactDOM from 'react-dom/client'\nimport App from './App.jsx'\nimport './index.css'\nimport { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'\nimport Home from './pages/Home.jsx'\nimport Layout from './components/Layout.jsx'\nimport About from './pages/About.jsx'\nimport Contact from './pages/Contact.jsx'\n\nconst router = createBrowserRouter(\n  createRoutesFromElements(\n    <Route path='/' element={<Layout />}>\n      <Route path='' element={<Home />} />\n      <Route path='about' element={<About />} />\n      <Route path='contact' element={<Contact />} />\n    </Route>\n  )\n);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    {/* <App /> */}\n    <RouterProvider router={router} />\n  </React.StrictMode>,\n);",
-          "images": [],
-          "additional_info": "The RouterProvider component replaces the traditional App component to manage routes. It requires a router prop that contains all the defined routes.",
-          "recommendation": ""
-        },
-        {
-          "section_title": "Step 4: Create Layout Component",
-          "section_content": "To ensure that your header and footer appear on every page, create a Layout component in the components folder. This component will contain your Header and Footer components along with an Outlet component, which will dynamically display the content of the requested page.",
-          "code_snippet_title": "Example Code",
-          "code_snippet": "// components/Layout.jsx \nimport Header from './Header'\nimport Footer from './Footer'\nimport { Outlet } from 'react-router-dom';\nconst Layout = () => {\n  return (\n    <>\n      <Header />\n      {/* Pass component dynamically here  */}\n      <Outlet />                {/* it will change the component on user request  */}\n      <Footer />\n    </>\n  )\n}\nexport default Layout;",
-          "images": [],
-          "additional_info": "The Layout component serves as a template for your app, ensuring consistent header and footer across all pages. The Outlet component dynamically renders the content based on the current route.",
-          "recommendation": ""
-        },
-        {
-          "section_title": "Step 5: Use Layout in Routes",
-          "section_content": "Now, go back to your main.jsx or index.jsx file. Here, you will define the routes for your application using createRoutesFromElements. This function allows you to specify which component should be rendered for each route. In this example, the Layout component will be used as the base layout, and the Home, About, and Contact components will be rendered within it.",
-          "code_snippet_title": "Example Code",
-          "code_snippet": "createRoutesFromElements(\n  <Route path='/' element={<Layout />}>\n    <Route path='' element={<Home />} />\n    <Route path='about' element={<About />} />\n    <Route path='contact' element={<Contact />} />\n  </Route>\n)",
-          "images": [],
-          "additional_info": "The createRoutesFromElements function makes it easier to define routes in a JSX-like syntax. This helps in clearly specifying which components should be rendered for each route.",
-          "recommendation": ""
-        },
-        {
-          "section_title": "Step 6: Create and Configure Router",
-          "section_content": "Finally, create and configure the router. Import createBrowserRouter from react-router-dom and create a router instance using createRoutesFromElements. This method makes it easy to define routes and their corresponding components.",
-          "code_snippet_title": "Example Code",
-          "code_snippet": "const router = createBrowserRouter(\n  createRoutesFromElements(\n    <Route path='/' element={<Layout />}>\n      <Route path='' element={<Home />} />\n      <Route path='about' element={<About />} />\n      <Route path='contact' element={<Contact />} />\n    </Route>\n  )\n);",
-          "images": [],
-          "additional_info": "Creating and configuring the router is crucial for defining how your app handles different routes. This setup allows the app to render the appropriate component based on the URL path.",
-          "recommendation": ""
-        },
-        {
-          "section_title": "CSS for Navigation",
-          "section_content": "The following CSS styles are used to style the navigation links in the Header component. It includes styles for the nav element, the links, and the active link state.",
-          "code_snippet_title": "CSS Code",
-          "code_snippet": "nav {\n  background-color: #333;\n  padding: 1em;\n}\n\nnav a {\n  color: white;\n  margin: 0 1em;\n  text-decoration: none;\n}\n\nnav a.active {\n  font-weight: bold;\n  border-bottom: 2px solid yellow;\n}",
-          "images": [],
-          "additional_info": "This CSS code styles the navigation bar, making it visually appealing. It includes styles for the nav container, the links, and highlights the active link.",
-          "recommendation": ""
-        }
-      ]
+        "introduction": "React Router DOM is a powerful library that provides routing capabilities to React applications, allowing seamless navigation between different pages without reloading the entire page. This guide will walk you through advanced usage of React Router DOM, including setting up routes, using `Link` and `NavLink`, and creating a layout component that includes headers and footers.",
+        "sections": [
+            {
+                "section_title": "Setting Up React Router DOM",
+                "section_content": "To begin using React Router DOM in your application, you first need to install it. This can be done using npm.",
+                "code_snippet_title": "Installation Command",
+                "code_snippet": "npm install react-router-dom",
+                "images": [],
+                "additional_info": "",
+                "recommendation": ""
+            },
+            {
+                "section_title": "Using `Link` and `NavLink`",
+                "section_content": "React Router DOM provides two primary components for navigation: `Link` and `NavLink`. `Link` is used to navigate to different routes without causing a page reload, while `NavLink` allows for styling the active link.",
+                "code_snippet_title": "Header Component",
+                "code_snippet": "// components/Header.jsx\nimport { Link, NavLink } from 'react-router-dom';\nimport '../index.css';\n\nconst Header = () => {\n    return (\n      <nav>\n        <NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>Home</NavLink>\n        <NavLink to='/about' className={({ isActive }) => (isActive ? 'active' : '')}>About</NavLink>\n        <NavLink to='/contact' className={({ isActive }) => (isActive ? 'active' : '')}>Contact</NavLink>\n      </nav>\n    );\n}\n\nexport default Header;",
+                "images": [],
+                "additional_info": "",
+                "recommendation": ""
+            },
+            {
+                "section_title": "Configuring the Router",
+                "section_content": "In your main entry file (usually `main.jsx` or `index.jsx`), you need to replace the `App` component with `RouterProvider` and set up your routes.",
+                "code_snippet_title": "Main Entry File Configuration",
+                "code_snippet": "// main.jsx or index.jsx\nimport React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport './index.css';\nimport { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';\nimport Home from './pages/Home.jsx';\nimport About from './pages/About.jsx';\nimport Contact from './pages/Contact.jsx';\nimport Layout from './components/Layout.jsx';\n\nconst router = createBrowserRouter(\n  createRoutesFromElements(\n    <Route path='/' element={<Layout />}> \n      <Route index element={<Home />} />\n      <Route path='about' element={<About />} />\n      <Route path='contact' element={<Contact />} />\n    </Route>\n  )\n);\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <RouterProvider router={router} />\n  </React.StrictMode>\n);",
+                "images": [],
+                "additional_info": "",
+                "recommendation": ""
+            },
+            {
+                "section_title": "Creating a Layout Component",
+                "section_content": "A `Layout` component can be used to include common elements like headers and footers across different pages.",
+                "code_snippet_title": "Layout Component",
+                "code_snippet": "// components/Layout.jsx\nimport Header from './Header';\nimport Footer from './Footer';\nimport { Outlet } from 'react-router-dom';\n\nconst Layout = () => {\n    return (\n        <>\n            <Header />\n            <Outlet />  {/* Renders the matched child route */}\n            <Footer />\n        </>\n    );\n}\n\nexport default Layout;",
+                "images": [],
+                "additional_info": "",
+                "recommendation": ""
+            },
+            {
+                "section_title": "Utilizing the Layout Component",
+                "section_content": "To use the `Layout` component in your routing setup, ensure that your routes are nested within it.",
+                "code_snippet_title": "Route Configuration with Layout",
+                "code_snippet": "// In main.jsx or index.jsx\nconst router = createBrowserRouter(\n  createRoutesFromElements(\n    <Route path='/' element={<Layout />}> \n      <Route index element={<Home />} />\n      <Route path='about' element={<About />} />\n      <Route path='contact' element={<Contact />} />\n    </Route>\n  )\n);",
+                "images": [],
+                "additional_info": "",
+                "recommendation": ""
+            }
+        ]
     },
-    "tags": ["React", "React Router DOM", "Routing", "JavaScript", "Web Development"],
+    "tags": [
+        "React",
+        "React Router DOM",
+        "Web Development",
+        "JavaScript",
+        "Frontend Development"
+    ],
     "metadata": {
-      "word_count": 850,
-      "read_time": "10 minutes"
+        "word_count": 850,
+        "read_time": "5 minutes"
     }
+
   }
   
   
