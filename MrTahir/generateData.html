@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metadata Generator Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,7 +37,7 @@
         }
 
         form input, form textarea, form button {
-            width: 100%;
+            width: 90%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ddd;
@@ -57,10 +58,17 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         form button:hover {
             background-color: #3700b3;
+        }
+
+        .button-icon {
+            margin-right: 8px;
         }
 
         h2 {
@@ -90,6 +98,14 @@
 
         #sections h3 {
             color: #6200ea;
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
+        }
+
+        #sections h3 i {
+            margin-right: 10px;
+            color: #6200ea;
         }
 
         #sections button {
@@ -102,6 +118,9 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #sections button:hover {
@@ -109,7 +128,7 @@
         }
 
         .copy-btn {
-            display: inline-block;
+            display: none;
             margin-top: 20px;
             background-color: #6200ea;
             color: #fff;
@@ -118,10 +137,21 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-btn.show {
+            display: inline-block;
         }
 
         .copy-btn:hover {
             background-color: #3700b3;
+        }
+
+        .copy-btn i {
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -144,7 +174,7 @@
         <textarea id="introduction" name="introduction" required></textarea>
 
         <div id="sections">
-            <h3>Sections</h3>
+            <h3><i class="fas fa-plus"></i> Sections</h3>
             <div class="section">
                 <label for="section_title_0">Section Title:</label>
                 <input type="text" id="section_title_0" name="section_title[]" required>
@@ -169,17 +199,17 @@
             </div>
         </div>
 
-        <button type="button" onclick="addSection()">Add Section</button>
+        <button type="button" onclick="addSection()"><i class="fas fa-plus-circle button-icon"></i>Add Section</button>
 
         <label for="tags">Tags (comma separated):</label>
         <input type="text" id="tags" name="tags" required>
 
-        <button type="submit">Generate Metadata</button>
+        <button type="submit"><i class="fas fa-cogs button-icon"></i> Generate Metadata</button>
     </form>
 
     <h2>Generated Metadata</h2>
     <pre id="output"></pre>
-    <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+    <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()"><i class="fas fa-copy"></i> Copy to Clipboard</button>
 
     <script>
         function addSection() {
@@ -207,7 +237,7 @@
                 <textarea id="additional_info_${sectionIndex}" name="additional_info[]" required></textarea>
 
                 <label for="recommendation_${sectionIndex}">Recommendation:</label>
-                <textarea id="recommendation_${sectionIndex}" name="recommendation[]" required>
+                <textarea id="recommendation_${sectionIndex}" name="recommendation[]" required></textarea>
             `;
 
             document.getElementById('sections').appendChild(sectionDiv);
@@ -243,7 +273,6 @@
                     section_content: sectionContents[i],
                     code_snippet_title: codeSnippetTitles[i],
                     code_snippet: codeSnippets[i],
-                   
                     images: images[i].split(',').map(img => img.trim()),
                     additional_info: additionalInfos[i],
                     recommendation: recommendations[i]
@@ -261,6 +290,7 @@
 
             const output = JSON.stringify(data, null, 4);
             document.getElementById('output').textContent = output;
+            document.getElementById('copyBtn').classList.add('show');
         });
 
         function calculateWordCount(content) {
